@@ -90,4 +90,4 @@ jobs:
           docker run --rm \
             -v "${{ runner.temp }}/e2e/e2e-app:/app" -w /app \
             node:24-alpine \
-            sh -c "corepack enable && pnpm build"
+            sh -c "npm install -g pnpm@latest && pnpm build"
