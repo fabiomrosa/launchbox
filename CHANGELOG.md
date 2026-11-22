@@ -3,6 +3,11 @@
 We keep all the changes in this project documents in this file following [Keep a CHANGELOG](http://keepachangelog.com/en/0.3.0/)'s rules.
 We always version our apps using [Semantic Versioning 2.0](http://semver.org/).
 
+## [0.7.1](https://github.com/fabiomrosa/launchbox/releases/tag/v0.7.1) - 2026-11-22
+
+### 🐛 Fixes
+- fix(docker): install pnpm with npm, since corepack is no longer bundled with Node 25+
+
 ## [0.7.0](https://github.com/fabiomrosa/launchbox/releases/tag/v0.7.0) - 2026-09-26
 
 ### 📚 Documentation
