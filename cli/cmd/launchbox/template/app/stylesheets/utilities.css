@@ -1,0 +1,68 @@
+/*
+ * Single-purpose classes
+ */
+@utility center-absolute {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@utility scrollbar-hidden {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  &::-webkit-scrollbar {
+    display: none;
+  } /* Chrome, Safari and Opera */
+}
+
+@utility bg-noise {
+  background-image: var(--bg-noise);
+}
+
+@utility fx-text-glow {
+  position: relative;
+  &::before {
+    pointer-events: none;
+    content: attr(data-text);
+    position: absolute;
+    color: white;
+    filter: blur(4px);
+    inset: 0;
+    @apply text-transparent bg-clip-text;
+    animation: animation-shimmer 5s linear infinite;
+    background-size: 200% 100%;
+    background-image: linear-gradient(
+      90deg,
+      transparent 0%,
+      transparent 20%,
+      white 50%,
+      white 60%,
+      transparent 80%,
+      transparent 100%
+    );
+  }
+}
+
+@utility fx-text-shimmer {
+  @apply text-transparent bg-clip-text;
+  animation: animation-shimmer 5s linear infinite;
+  background-size: 200% 100%;
+  background-image: linear-gradient(
+    90deg,
+    theme(colors.gray.400) 0%,
+    theme(colors.gray.200) 30%,
+    white 50%,
+    theme(colors.gray.200) 70%,
+    theme(colors.gray.400) 100%
+  );
+}
+
+@keyframes animation-shimmer {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}

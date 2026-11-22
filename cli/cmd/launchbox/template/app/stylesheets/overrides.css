@@ -1,0 +1,205 @@
+/*
+ * Overrides for external/auto-generated markup (CMS + third-party libs).
+ * Keep scoped. Avoid !important. Prefer low specificity.
+ */
+@layer base {
+  .render-html {
+    /* Select all elements except the last child of their parent */
+    > :not(:last-child) {
+      @apply mb-3;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      /* Override here (if needed) */
+    }
+
+    h1 { /* Override here (if needed) */ }
+    h2 { /* Override here (if needed) */ }
+    h3 { /* Override here (if needed) */ }
+    h4 { /* Override here (if needed) */ }
+    h5 { /* Override here (if needed) */ }
+    h6 { /* Override here (if needed) */ }
+
+    p {
+      /* Override here (if needed) */
+    }
+
+    a {
+      /* Override here (if needed) */
+    }
+
+    ul, ol {
+      /* Override here (if needed) */
+    }
+
+    li {
+      /* Override here (if needed) */
+    }
+
+    figcaption {
+      @apply text-xs leading-relaxed;
+    }
+
+    /*************************************/
+    /* WordPress override-related styles */
+    /*************************************/
+
+    .has-text-align-left {
+      @apply text-left;
+    }
+    .has-text-align-center {
+      @apply text-center;
+    }
+    .has-text-align-right {
+      @apply text-right;
+    }
+
+    /* Block Table */
+    .wp-block-table {
+      @apply overflow-x-auto;
+
+      &.alignleft,
+      &.aligncenter,
+      &.alignright {
+        @apply flex flex-col;
+      }
+
+      &.alignleft {
+        @apply sm:justify-self-start;
+      }
+      &.aligncenter {
+        @apply sm:justify-self-center;
+      }
+      &.alignright {
+        @apply sm:justify-self-end;
+      }
+
+      &.is-style-stripes {
+        tr {
+          @apply not-odd:bg-gray-400;
+        }
+      }
+
+      table {
+        @apply max-w-full bg-gray-200 border border-collapse;
+
+        &.has-fixed-layout {
+          @apply table-fixed sm:w-full;
+        }
+
+        th, td {
+          @apply align-top p-3 border border-black text-base lg:text-lg xl:text-xl;
+        }
+
+        thead th {
+          @apply align-middle bg-gray-300 border-b-2;
+        }
+
+        tfoot td {
+          @apply align-middle bg-gray-300 border-t-2;
+        }
+      }
+    }
+
+    /* Block Quote */
+    .wp-block-quote {
+      @apply m-0 mb-5 pl-8 py-2 border-l-4 border-solid border-black;
+
+      cite {
+        @apply block mt-8 font-semibold text-xs not-italic leading-tight;
+      }
+
+      p:last-child {
+        @apply m-0;
+      }
+
+      /* Optional: remove default blockquote quotation marks */
+      &::before,
+      &::after {
+        content: "";
+      }
+    }
+
+    /* Block Pullquote */
+    .wp-block-pullquote {
+      @apply mb-6 py-2 text-center border-y-4 border-solid border-black;
+
+      p {
+        @apply mb-3;
+      }
+
+      cite {
+        @apply block font-semibold text-xs not-italic leading-tight;
+      }
+    }
+
+    /* Block Embed */
+    .wp-block-embed {
+      /* Video */
+      &.is-type-video {
+        .wp-block-embed__wrapper {
+          @apply w-full h-full;
+        }
+
+        iframe {
+          @apply w-full h-full aspect-video;
+        }
+
+        &.alignleft,
+        &.aligncenter,
+        &.alignright {
+          iframe {
+            @apply max-w-2xl;
+          }
+        }
+
+        &.alignleft {
+          .wp-block-embed__wrapper {
+            @apply sm:justify-self-start;
+          }
+        }
+
+        &.aligncenter {
+          .wp-block-embed__wrapper {
+            @apply sm:grid sm:place-items-center;
+          }
+        }
+
+        &.alignright {
+          .wp-block-embed__wrapper {
+            @apply sm:grid sm:place-items-end;
+          }
+        }
+      }
+
+      /* Twitter */
+      &.is-provider-twitter {
+        .wp-block-embed__wrapper {
+          @apply w-full h-full;
+        }
+
+        iframe {
+          @apply w-full h-full;
+        }
+
+        &.alignleft {
+          .wp-block-embed__wrapper {
+            @apply sm:grid sm:justify-self-start;
+          }
+        }
+
+        &.aligncenter {
+          .wp-block-embed__wrapper {
+            @apply sm:grid sm:place-items-center;
+          }
+        }
+
+        &.alignright {
+          .wp-block-embed__wrapper {
+            @apply sm:grid sm:place-items-end;
+          }
+        }
+      }
+    }
+  }
+}

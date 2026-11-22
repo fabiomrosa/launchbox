@@ -1,0 +1,93 @@
+name: Upstream Check
+
+# Launchbox builds on create-next-app@latest, so its output can change under us.
+# This generates a real project every week (and on CLI changes) and fails when
+# the output no longer matches what the CLI expects, or the project won't build.
+# GitHub emails a failed scheduled run to whoever last changed the cron below.
+
+on:
+  schedule:
+    - cron: "0 9 * * 1" # Mondays, 09:00 UTC
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "cli/**"
+      - ".github/workflows/upstream-check.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  unit:
+    name: 🧪 Unit tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🧾 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🔧 Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: cli/go.mod
+
+      - name: 🧪 Vet and test
+        working-directory: cli
+        run: |
+          go vet ./...
+          go test ./...
+
+  e2e:
+    name: 🚀 Generate with ${{ matrix.runner }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [pnpm, docker]
+
+    steps:
+      - name: 🧾 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🔧 Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: cli/go.mod
+
+      - name: 🔧 Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
+      - name: 🔧 Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.25.0
+
+      - name: 🔧 Setup git identity
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+
+      - name: ⚙️ Generate project
+        working-directory: cli
+        env:
+          E2E_RUNNER: ${{ matrix.runner }}
+          E2E_DIR: ${{ runner.temp }}/e2e
+        run: go test -tags e2e -run TestE2E -count=1 -v -timeout 20m ./cmd/launchbox
+
+      - name: 🏗️ Build project (pnpm)
+        if: matrix.runner == 'pnpm'
+        working-directory: ${{ runner.temp }}/e2e/e2e-app
+        run: pnpm build
+
+      # node_modules were installed inside the Alpine image, so build there too
+      - name: 🏗️ Build project (docker)
+        if: matrix.runner == 'docker'
+        run: |
+          docker run --rm \
+            -v "${{ runner.temp }}/e2e/e2e-app:/app" -w /app \
+            node:24-alpine \
+            sh -c "corepack enable && pnpm build"

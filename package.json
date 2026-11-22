@@ -1,0 +1,25 @@
+{
+  "name": "@fabiomrosa/launchbox",
+  "description": "Command-line interface for creating boilerplate Next.js applications.",
+  "version": "0.7.0",
+  "author": "Fábio Rosa <hi@fabiorosa.dev>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fabiomrosa/launchbox.git"
+  },
+  "bin": {
+    "launchbox": "./launchbox"
+  },
+  "scripts": {
+    "postinstall": "node postinstall.js"
+  },
+  "files": [
+    "bin/",
+    "launchbox",
+    "postinstall.js"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "license": "MIT"
+}

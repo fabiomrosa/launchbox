@@ -1,0 +1,38 @@
+/* Vendor/external CSS (if any) */
+/* @import "third-party.css"; */
+@import "tailwindcss";
+@import "./stylesheets/application.css";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+
+  --font-proxima-nova: "proxima-nova", Arial, Helvetica, sans-serif;
+
+  --image-noise-pattern: url("/images/noise-pattern.png");
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --font-body: var(--font-geist);
+  --font-display: var(--font-special-gothic);
+  --font-heading: var(--font-proxima-nova);
+  --font-mono: var(--font-geist-mono);
+
+  --bg-noise: var(--image-noise-pattern);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body);
+}

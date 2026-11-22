@@ -1,0 +1,19 @@
+services:
+  app:
+    build:
+      context: ./docker
+      dockerfile: Dockerfile
+    working_dir: /app
+    command: >
+      sh -lc '
+        [ -d node_modules ] || PNPM_STORE_DIR=/root/.local/share/pnpm/store pnpm install;
+        node server.js
+      '
+    environment:
+      NODE_ENV: development
+      PORT: "3000"
+      NEXT_TELEMETRY_DISABLED: "1"
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
