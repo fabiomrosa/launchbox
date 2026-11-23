@@ -514,6 +514,12 @@ func configureProject() error {
 
 	// Step 6: Remove files in root directory
 	spinner.Start("📁 Customize project directory")
+	// The template's next.config.mjs wires Tailwind through @tailwindcss/turbopack,
+	// mirroring the next.config.ts it replaces
+	if nextConfig, err := os.ReadFile(filepath.Join(projectPath, "next.config.ts")); err == nil &&
+		!bytes.Contains(nextConfig, []byte("@tailwindcss/turbopack")) {
+		warnf("next.config.ts no longer uses @tailwindcss/turbopack (template next.config.mjs relies on it)")
+	}
 	for _, f := range []string{
 		filepath.Join(projectPath, "next.config.ts"),
 	} {

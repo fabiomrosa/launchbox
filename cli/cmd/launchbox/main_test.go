@@ -38,8 +38,9 @@ func fakeCreateNextApp(t *testing.T, dir string) {
 	writeFile(t, filepath.Join(dir, "package.json"), `{"scripts":{"build":"next build"},"dependencies":{"next":"16.0.0"}}`)
 	writeFile(t, filepath.Join(dir, "tsconfig.json"), `{"compilerOptions":{"paths":{"@/*":["./*"]}}}`)
 	writeFile(t, filepath.Join(dir, ".gitignore"), "# env files\n.env*\n")
+	writeFile(t, filepath.Join(dir, "next.config.ts"), `loaders: ["@tailwindcss/turbopack"]`)
 	for _, f := range []string{
-		"next.config.ts", "app/layout.tsx", "app/page.tsx",
+		"app/layout.tsx", "app/page.tsx",
 		"public/file.svg", "public/globe.svg", "public/vercel.svg", "public/window.svg", "public/next.svg",
 	} {
 		writeFile(t, filepath.Join(dir, f), "x")
