@@ -57,7 +57,7 @@ func main() {
 
 	var confirmation bool
 
-	projectDefaultName := "tgtp-app"
+	projectDefaultName := "my-app"
 
 	if err := huh.NewForm(
 		huh.NewGroup(
