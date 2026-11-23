@@ -3,6 +3,12 @@
 We keep all the changes in this project documents in this file following [Keep a CHANGELOG](http://keepachangelog.com/en/0.3.0/)'s rules.
 We always version our apps using [Semantic Versioning 2.0](http://semver.org/).
 
+## [0.7.2](https://github.com/fabiomrosa/launchbox/releases/tag/v0.7.2) - 2026-11-23
+
+### 🐛 Fixes
+- fix(cli): use my-app as the default project name
+- fix(template): wire Tailwind through @tailwindcss/turbopack in next.config.mjs
+
 ## [0.7.1](https://github.com/fabiomrosa/launchbox/releases/tag/v0.7.1) - 2026-11-22
 
 ### 🐛 Fixes
